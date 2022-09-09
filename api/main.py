@@ -1,17 +1,28 @@
 from fastapi import FastAPI
+from starlette.middleware.cors import CORSMiddleware
+
 from api import models
 from api.utils.database import database, engine
 from api.controllers.auth_controller import router
 from api.controllers.transaction import router_tran
+
 app = FastAPI()
 
 app = FastAPI(
     docs_url="/docs",
     redoc_url="/redocs",
     title="Api{Lakem Api}",
-    description="Buynern api",
+    description="Lakem api",
     version=0.10,
     openapi_url="/openapi.json"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+    allow_credentials=True,
 )
 
 
